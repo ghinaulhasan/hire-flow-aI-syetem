@@ -46,7 +46,7 @@
 
     .navbar-enterprise {
       background: var(--primary);
-      padding: 0.8rem 0;
+      padding: 0.7rem 0;
       box-shadow: 0 2px 20px rgba(0,0,0,0.15);
       border-bottom: 3px solid var(--secondary);
       position: sticky;
@@ -55,29 +55,49 @@
     }
     .navbar-enterprise .brand {
       font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       color: #fff;
       font-weight: 700;
       letter-spacing: 0.5px;
+      display: inline-flex;
+      flex-direction: column;
+      line-height: 1.15;
     }
     .navbar-enterprise .brand span { color: var(--secondary); }
     .navbar-enterprise .brand small {
       font-size: 0.6rem;
       font-weight: 400;
       opacity: 0.7;
-      display: block;
       letter-spacing: 2px;
       text-transform: uppercase;
       font-family: 'Inter', sans-serif;
+      margin-left: 1.9rem;
     }
+
+    /* Custom hamburger toggler */
+    .navbar-toggler-custom {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      width: 42px; height: 38px;
+      border-radius: var(--radius-sm);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 1.05rem;
+      transition: var(--transition);
+    }
+    .navbar-toggler-custom:hover { background: rgba(201,168,76,0.18); border-color: var(--secondary); }
+    .navbar-toggler-custom:focus { outline: none; box-shadow: 0 0 0 3px rgba(201,168,76,0.25); }
+
+    .navbar-nav#mainNav { align-items: center; }
     .nav-link-enterprise {
       color: rgba(255,255,255,0.7) !important;
       padding: 0.5rem 1rem !important;
       border-radius: var(--radius-sm);
       font-weight: 500;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       transition: var(--transition);
       position: relative;
+      display: inline-flex; align-items: center; white-space: nowrap;
     }
     .nav-link-enterprise:hover { color: #fff !important; background: rgba(255,255,255,0.08); }
     .nav-link-enterprise.active { color: #fff !important; background: var(--secondary); box-shadow: 0 4px 15px rgba(201,168,76,0.3); }
@@ -87,6 +107,33 @@
       border-radius: 50%; animation: pulse 2s infinite;
     }
     @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+
+    /* Right-side action cluster */
+    .navbar-actions { margin-left: 1rem; padding-left: 1rem; border-left: 1px solid rgba(255,255,255,0.12); }
+    .navbar-icon-btn {
+      position: relative;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.85);
+      width: 40px; height: 40px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 1rem; transition: var(--transition); flex-shrink: 0;
+    }
+    .navbar-icon-btn:hover { background: rgba(201,168,76,0.18); border-color: var(--secondary); color: #fff; }
+    .navbar-icon-btn .badge-dot { top: 6px; right: 7px; }
+
+    .navbar-user-dropdown .navbar-user-toggle {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      color: #fff; border-radius: 50px; padding: 0.3rem 0.9rem 0.3rem 0.3rem;
+      display: inline-flex; align-items: center; gap: 0.6rem; transition: var(--transition);
+    }
+    .navbar-user-dropdown .navbar-user-toggle:hover { background: rgba(201,168,76,0.18); border-color: var(--secondary); }
+    .navbar-user-dropdown .navbar-user-toggle::after { margin-left: 0.3rem; opacity: 0.6; }
+    .navbar-user-avatar {
+      width: 32px; height: 32px; border-radius: 50%; background: var(--secondary); color: var(--primary);
+      display: inline-flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0;
+    }
+    .navbar-user-meta { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15; }
+    .navbar-user-name { font-size: 0.85rem; font-weight: 600; }
+    .navbar-user-role { font-size: 0.7rem; color: rgba(255,255,255,0.55); }
 
     .card-enterprise {
       background: var(--bg-card); border: 1px solid var(--border);
@@ -278,14 +325,68 @@
     }
     .email-config-banner.warning { background: #fecaca; border-color: #dc2626; }
 
+    /* Back-to-section button used across app views */
+    .btn-back-section {
+      background: transparent; color: var(--text-secondary); border: 2px solid var(--border);
+      padding: 0.45rem 1rem; border-radius: var(--radius-sm); font-weight: 600; font-size: 0.85rem;
+      transition: var(--transition); display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;
+    }
+    .btn-back-section:hover { border-color: var(--secondary); color: var(--secondary); background: rgba(201,168,76,0.06); transform: translateX(-2px); }
+
+    /* Always-visible navbar logout button */
+    .btn-navbar-logout {
+      background: rgba(239,68,68,0.12); color: #fca5a5; border: 1.5px solid rgba(239,68,68,0.35);
+      padding: 0.5rem 1.1rem; border-radius: var(--radius-sm); font-weight: 600; font-size: 0.85rem;
+      transition: var(--transition); display: inline-flex; align-items: center; gap: 0.5rem; white-space: nowrap;
+    }
+    .btn-navbar-logout:hover { background: #ef4444; color: #fff; border-color: #ef4444; }
+
+    @media (max-width: 991px) {
+      .navbar-collapse {
+        background: var(--primary); border-radius: var(--radius-sm);
+        margin-top: 0.75rem; padding: 1rem; box-shadow: var(--shadow);
+      }
+      #mainNav { gap: 0.35rem !important; align-items: stretch; }
+      #mainNav .nav-link-enterprise { width: 100%; }
+      .navbar-actions {
+        margin-left: 0 !important; padding-left: 0 !important;
+        border-left: none; border-top: 1px solid rgba(255,255,255,0.12);
+        margin-top: 0.75rem !important; padding-top: 0.9rem !important; width: 100%;
+        justify-content: space-between;
+      }
+      .navbar-user-dropdown { flex: 1; }
+      .navbar-user-dropdown .navbar-user-toggle { width: 100%; justify-content: flex-start; }
+    }
+
     @media (max-width: 768px) {
       .stat-card-enterprise .stat-number { font-size: 1.6rem; }
       .card-enterprise { padding: 1rem; }
       .navbar-enterprise .brand { font-size: 1.1rem; }
+      .navbar-enterprise .brand small { font-size: 0.55rem; }
       .search-bar-enterprise { max-width: 100%; }
       .chat-container { height: 280px; }
       .chart-container { height: 180px; }
-      .chatbot-panel { width: calc(100% - 40px); height: 400px; }
+      .chatbot-panel { width: calc(100% - 24px); right: 12px; left: 12px; height: 420px; bottom: 130px; }
+      .chatbot-widget { bottom: 70px; right: 14px; }
+      .chatbot-toggle { width: 52px; height: 52px; font-size: 1.25rem; }
+      .container-fluid.px-4 { padding-left: 1rem !important; padding-right: 1rem !important; }
+      .d-flex.justify-content-between.align-items-center.mb-4,
+      .d-flex.justify-content-between.align-items-center.mb-4.flex-wrap { align-items: flex-start !important; }
+      .email-config-banner { flex-direction: column; align-items: flex-start; }
+      .email-config-banner .d-flex.gap-2 { width: 100%; }
+      .email-config-banner .d-flex.gap-2 button { flex: 1; }
+      .modal-dialog { margin: 0.75rem; }
+      .table-enterprise thead { display: none; }
+      .table-enterprise, .table-enterprise tbody, .table-enterprise tr, .table-enterprise td { display: block; width: 100%; }
+      .table-enterprise tbody tr { margin-bottom: 0.75rem; padding: 0.75rem; border: 1px solid var(--border); }
+      .table-enterprise tbody td { padding: 0.4rem 0.25rem; border-radius: 0 !important; }
+      .table-enterprise tbody td:last-child { border-top: 1px solid var(--border); margin-top: 0.4rem; padding-top: 0.6rem; }
+    }
+
+    @media (max-width: 480px) {
+      .stat-card-enterprise .stat-number { font-size: 1.35rem; }
+      .btn-enterprise-secondary, .btn-enterprise-primary, .btn-enterprise-outline { padding: 0.55rem 1.1rem; font-size: 0.85rem; }
+      .hero-landing .hero-stats { gap: 1.25rem; }
     }
 
     .text-gold { color: var(--secondary); }
@@ -629,7 +730,7 @@
       <div class="hf-progress-label" id="hfProgressLabel">Initializing HireFlow AI · 0%</div>
     </div>
   </div>
-  <div class="hf-credit">Designed &amp; Developed by <strong>Syed Ghina ul Hassan</strong></div>
+  <div class="hf-credit">Developed by <strong>Syed Ghina ul Hassan</strong></div>
 </div>
 
 <script>
@@ -782,7 +883,7 @@
     <footer class="landing-footer" id="landing-contact">
       <div class="container-fluid px-4">
         <div>&copy; 2026 HireFlow AI · Enterprise Hiring Platform</div>
-        <div class="fs-small mt-1">Designed &amp; Developed by <strong class="text-gold">Syed Ghina ul Hassan</strong></div>
+        <div class="fs-small mt-1">Developed by <strong class="text-gold">Syed Ghina ul Hassan</strong></div>
       </div>
     </footer>
   </div>
@@ -852,13 +953,27 @@
               <input type="email" class="form-enterprise" id="regEmail" placeholder="you@company.com" required>
               <div class="auth-error-text" id="regEmailError">An account with this email already exists.</div>
             </div>
-            <div class="col-12">
+            <div class="col-md-6">
               <label class="form-enterprise-label">Role</label>
               <select class="form-enterprise" id="regRole">
                 <option value="Admin">Admin / Founder</option>
                 <option value="HR">HR Manager</option>
                 <option value="Recruiter">Recruiter</option>
               </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-enterprise-label">Company Size</label>
+              <select class="form-enterprise" id="regCompanySize">
+                <option value="1-10">1-10 employees</option>
+                <option value="11-50">11-50 employees</option>
+                <option value="51-200">51-200 employees</option>
+                <option value="201-500">201-500 employees</option>
+                <option value="500+">500+ employees</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-enterprise-label">Phone Number <span class="text-muted-enterprise fw-400">(optional)</span></label>
+              <input type="tel" class="form-enterprise" id="regPhone" placeholder="+1 555-0100">
             </div>
             <div class="col-12">
               <label class="form-enterprise-label">Password</label>
@@ -903,19 +1018,22 @@
 </div>
 
 <div id="appMain" class="d-none">
-<nav class="navbar-enterprise">
+<nav class="navbar navbar-expand-lg navbar-enterprise">
   <div class="container-fluid px-4">
-    <div class="d-flex align-items-center gap-4">
-      <a href="#" class="brand" id="brandLink">
-        <i class="fas fa-robot me-2" style="color: var(--secondary);"></i>HireFlow<span>AI</span>
-        <small>Enterprise Hiring Platform</small>
-      </a>
+    <a href="#" class="navbar-brand brand" id="brandLink">
+      <i class="fas fa-robot me-2" style="color: var(--secondary);"></i>HireFlow<span>AI</span>
+      <small>Enterprise Hiring Platform</small>
+    </a>
+
+    <div class="d-flex align-items-center gap-2 order-lg-3">
+      <button class="btn-navbar-logout d-lg-none" id="navbarLogoutBtnMobile" title="Logout"><i class="fas fa-sign-out-alt"></i></button>
+      <button class="navbar-toggler-custom" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
-    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-      <i class="fas fa-bars text-white"></i>
-    </button>
+
     <div class="collapse navbar-collapse" id="navMenu">
-      <ul class="navbar-nav ms-auto gap-1" id="mainNav">
+      <ul class="navbar-nav mx-lg-auto gap-lg-1" id="mainNav">
         <li class="nav-item"><a class="nav-link-enterprise active" data-section="dashboard" href="#"><i class="fas fa-th-large me-1"></i>Dashboard</a></li>
         <li class="nav-item"><a class="nav-link-enterprise" data-section="candidates" href="#"><i class="fas fa-users me-1"></i>Candidates</a></li>
         <li class="nav-item"><a class="nav-link-enterprise" data-section="jobs" href="#"><i class="fas fa-briefcase me-1"></i>Jobs</a></li>
@@ -923,14 +1041,20 @@
         <li class="nav-item"><a class="nav-link-enterprise" data-section="upload" href="#"><i class="fas fa-cloud-upload-alt me-1"></i>Upload</a></li>
         <li class="nav-item"><a class="nav-link-enterprise" data-section="settings" href="#"><i class="fas fa-cog me-1"></i>Settings</a></li>
       </ul>
-      <div class="d-flex align-items-center gap-3 ms-3">
-        <button class="btn-enterprise-ghost text-white" id="notifBtn">
+
+      <div class="navbar-actions d-flex align-items-center gap-2">
+        <button class="navbar-icon-btn" id="notifBtn" title="Notifications">
           <i class="fas fa-bell"></i>
           <span class="badge-dot" id="notifBadge" style="display:none;"></span>
         </button>
-        <div class="dropdown">
-          <button class="btn-enterprise-ghost text-white dropdown-toggle" data-bs-toggle="dropdown">
-            <i class="fas fa-user-circle me-1"></i> <span id="userNameDisplay">CEO</span> <small class="opacity-75" id="userRoleDisplay"></small>
+
+        <div class="dropdown navbar-user-dropdown">
+          <button class="navbar-user-toggle dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="navbar-user-avatar"><i class="fas fa-user"></i></span>
+            <span class="navbar-user-meta">
+              <span class="navbar-user-name" id="userNameDisplay">CEO</span>
+              <span class="navbar-user-role" id="userRoleDisplay"></span>
+            </span>
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
@@ -939,6 +1063,10 @@
             <li><a class="dropdown-item text-danger" id="logoutBtn" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
           </ul>
         </div>
+
+        <button class="btn-navbar-logout" id="navbarLogoutBtn">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
       </div>
     </div>
   </div>
@@ -1003,6 +1131,7 @@
 
   <!-- CANDIDATES -->
   <div id="candidatesSection" class="section-content d-none">
+    <button class="btn-back-section quick-nav" data-target="dashboard"><i class="fas fa-arrow-left"></i>Back to Dashboard</button>
     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
       <div><h2 class="font-serif fw-700 mb-0">Candidates</h2><p class="text-muted-enterprise">Manage and screen candidates</p></div>
       <div class="d-flex gap-3 flex-wrap">
@@ -1025,18 +1154,21 @@
 
   <!-- JOBS -->
   <div id="jobsSection" class="section-content d-none">
+    <button class="btn-back-section quick-nav" data-target="dashboard"><i class="fas fa-arrow-left"></i>Back to Dashboard</button>
     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3"><div><h2 class="font-serif fw-700 mb-0">Jobs</h2><p class="text-muted-enterprise">Manage job postings</p></div><button class="btn-enterprise-secondary" id="createJobBtn"><i class="fas fa-plus me-2"></i>Create Job</button></div>
     <div class="row g-4" id="jobList"><div class="col-12 text-center text-muted-enterprise py-5">Loading jobs...</div></div>
   </div>
 
   <!-- INTERVIEWS -->
   <div id="interviewsSection" class="section-content d-none">
+    <button class="btn-back-section quick-nav" data-target="dashboard"><i class="fas fa-arrow-left"></i>Back to Dashboard</button>
     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3"><div><h2 class="font-serif fw-700 mb-0">Interviews</h2><p class="text-muted-enterprise">AI and human interviews</p></div><button class="btn-enterprise-secondary" id="scheduleInterviewBtn"><i class="fas fa-calendar-plus me-2"></i>Schedule Interview</button></div>
     <div class="row g-4" id="interviewList"><div class="col-12 text-center text-muted-enterprise py-5">Loading interviews...</div></div>
   </div>
 
   <!-- UPLOAD -->
   <div id="uploadSection" class="section-content d-none">
+    <button class="btn-back-section quick-nav" data-target="dashboard"><i class="fas fa-arrow-left"></i>Back to Dashboard</button>
     <div class="card-enterprise text-center p-5">
       <h2 class="font-serif fw-700 mb-3">AI Resume Screening</h2>
       <p class="text-muted-enterprise mb-4">Upload resumes for AI-powered parsing and analysis</p>
@@ -1048,8 +1180,12 @@
 
   <!-- SETTINGS -->
   <div id="settingsSection" class="section-content d-none">
+    <button class="btn-back-section quick-nav" data-target="dashboard"><i class="fas fa-arrow-left"></i>Back to Dashboard</button>
     <div class="card-enterprise">
-      <h2 class="font-serif fw-700 mb-4">Company & Email Settings</h2>
+      <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+        <h2 class="font-serif fw-700 mb-0">Company & Email Settings</h2>
+        <button class="btn-enterprise-outline text-danger" id="settingsLogoutBtn"><i class="fas fa-sign-out-alt me-2"></i>Log Out</button>
+      </div>
       
       <!-- EmailJS Configuration -->
       <div class="card-enterprise mb-4" style="background: #f9f9f9;">
@@ -1630,6 +1766,17 @@ ${state.settings.companyName || 'HireFlow AI'} Team
         label.textContent = val ? labels[score] : 'Use 8+ characters';
       });
 
+      // Prefill remembered email, if any
+      try {
+        const remembered = localStorage.getItem('hireflow_remember_email');
+        if (remembered) {
+          const emailInput = document.getElementById('loginEmail');
+          const rememberBox = document.getElementById('loginRemember');
+          if (emailInput) emailInput.value = remembered;
+          if (rememberBox) rememberBox.checked = true;
+        }
+      } catch (e) {}
+
       document.getElementById('loginForm')?.addEventListener('submit', (e) => {
         e.preventDefault();
         const email = document.getElementById('loginEmail').value.trim();
@@ -1641,6 +1788,10 @@ ${state.settings.companyName || 'HireFlow AI'} Team
         if (!user) { document.getElementById('loginPasswordError').classList.add('show'); return; }
         state.auth.isLoggedIn = true; state.auth.currentUser = { id:user.id, name:user.name, company:user.company, email:user.email, role:user.role };
         Utils.saveState();
+        try {
+          if (document.getElementById('loginRemember')?.checked) localStorage.setItem('hireflow_remember_email', email);
+          else localStorage.removeItem('hireflow_remember_email');
+        } catch (e) {}
         this.enterApp(true);
       });
 
@@ -1656,6 +1807,8 @@ ${state.settings.companyName || 'HireFlow AI'} Team
         const company = document.getElementById('regCompany').value.trim();
         const email = document.getElementById('regEmail').value.trim();
         const role = document.getElementById('regRole').value;
+        const companySize = document.getElementById('regCompanySize')?.value || '';
+        const phone = document.getElementById('regPhone')?.value.trim() || '';
         const password = document.getElementById('regPassword').value;
         const confirm = document.getElementById('regConfirmPassword').value;
         document.getElementById('regEmailError').classList.remove('show');
@@ -1667,11 +1820,12 @@ ${state.settings.companyName || 'HireFlow AI'} Team
         if (password !== confirm) { document.getElementById('regConfirmError').classList.add('show'); return; }
         if (!document.getElementById('regTerms').checked) { App.showToast('Please accept the Terms of Service to continue', 'error'); return; }
 
-        const newUser = { id: Utils.generateId(), name, company, email, password, role };
+        const newUser = { id: Utils.generateId(), name, company, email, password, role, companySize, phone };
         state.auth.users.push(newUser);
         state.auth.isLoggedIn = true;
-        state.auth.currentUser = { id:newUser.id, name, company, email, role };
+        state.auth.currentUser = { id:newUser.id, name, company, email, role, companySize, phone };
         state.settings.companyName = company;
+        if (phone) state.settings.companyPhone = phone;
         Utils.saveState();
         this.enterApp(true);
       });
@@ -2068,15 +2222,19 @@ ${state.settings.companyName || 'HireFlow AI'} Team
       document.getElementById('applyCandidateFilters')?.addEventListener('click',()=>this.applyFilters());
       document.getElementById('candidateSearch')?.addEventListener('input',Utils.debounce(()=>this.applyFilters(),300));
       document.getElementById('refreshCandidatesBtn')?.addEventListener('click',()=>{this.refreshAll();this.showToast('Refreshed','success');});
-      document.getElementById('logoutBtn')?.addEventListener('click',(e)=>{
-        e.preventDefault();
+      const doLogout = (e) => {
+        e?.preventDefault();
         if(confirm('Log out of HireFlow AI?')){
           state.auth.isLoggedIn = false;
           state.auth.currentUser = null;
           Utils.saveState();
           AuthUI.exitToLanding();
         }
-      });
+      };
+      document.getElementById('logoutBtn')?.addEventListener('click', doLogout);
+      document.getElementById('settingsLogoutBtn')?.addEventListener('click', doLogout);
+      document.getElementById('navbarLogoutBtn')?.addEventListener('click', doLogout);
+      document.getElementById('navbarLogoutBtnMobile')?.addEventListener('click', doLogout);
       document.querySelectorAll('[data-section-link]').forEach(l=>l.addEventListener('click',e=>{e.preventDefault();this.navigateTo(l.dataset.sectionLink);}));
       document.getElementById('exportCandidatesBtn')?.addEventListener('click',()=>this.exportCandidatesCSV());
     },
